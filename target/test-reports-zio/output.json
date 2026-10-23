@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+       "name" : "educonnect.QuizServiceSpec/QuizServiceSpec/Rejects empty participant name",
+       "status" : "Success",
+       "durationMillis" : "49",
+       "annotations" : "",
+       "fullyQualifiedClassName" : "educonnect.QuizServiceSpec",
+       "labels" : ["QuizServiceSpec", "Rejects empty participant name"]
+    },
+    {
+       "name" : "educonnect.QuizServiceSpec/QuizServiceSpec/Correctly scores quiz submission and provides qualitative feedback",
+       "status" : "Success",
+       "durationMillis" : "49",
+       "annotations" : "",
+       "fullyQualifiedClassName" : "educonnect.QuizServiceSpec",
+       "labels" : ["QuizServiceSpec", "Correctly scores quiz submission and provides qualitative feedback"]
+    }
+
+  ]
+}

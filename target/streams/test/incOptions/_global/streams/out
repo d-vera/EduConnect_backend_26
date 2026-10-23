@@ -1,0 +1,14 @@
+[debug] Created transactional ClassFileManager with tempDir = /Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/test-classes.bak
+[debug] About to delete class files:
+[debug] We backup class files:
+[debug] Created transactional ClassFileManager with tempDir = /Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/test-classes.bak
+[debug] About to delete class files:
+[debug] We backup class files:
+[debug] Registering generated classes:
+[debug] 	QuizServiceSpec.class
+[debug] 	QuizServiceSpec$FakeQuizRepository.class
+[debug] 	QuizServiceSpec$.class
+[debug] 	QuizServiceSpec.tasty
+[debug] 	QuizServiceSpec$FakeQuizRepository.tasty
+[debug] 	QuizServiceSpec$.tasty
+[debug] Removing the temporary directory used for backing up class files: /Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/test-classes.bak

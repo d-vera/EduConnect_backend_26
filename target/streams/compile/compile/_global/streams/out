@@ -1,0 +1,17 @@
+[error] -- [E049] Reference Error: /Users/dennisvera/github/EduConnect_backend_26/src/main/scala/educonnect/api/Routes.scala:19:55 
+[error] 19 |  val openApiJsonEndpoint: ZServerEndpoint[Any, Any] = endpoint.get
+[error]    |                                                       ^^^^^^^^
+[error]    |                       Reference to endpoint is ambiguous.
+[error]    |                       It is both imported by import sttp.tapir.ztapir._
+[error]    |                       and imported subsequently by import zio.http._
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E049] Reference Error: /Users/dennisvera/github/EduConnect_backend_26/src/main/scala/educonnect/api/Routes.scala:26:58 
+[error] 26 |  val openApiJsonApiEndpoint: ZServerEndpoint[Any, Any] = endpoint.get
+[error]    |                                                          ^^^^^^^^
+[error]    |                       Reference to endpoint is ambiguous.
+[error]    |                       It is both imported by import sttp.tapir.ztapir._
+[error]    |                       and imported subsequently by import zio.http._
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] two errors found

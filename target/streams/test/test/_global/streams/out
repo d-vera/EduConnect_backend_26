@@ -1,0 +1,4 @@
+[debug] Running TaskDef(educonnect.QuizServiceSpec, zio.test.sbt.ZioSpecFingerprint$@1e463b21, false, [SuiteSelector])
+[info] Completed tests
+[debug] Passed tests:
+[debug] 	educonnect.QuizServiceSpec

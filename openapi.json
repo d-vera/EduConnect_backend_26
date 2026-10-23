@@ -1,0 +1,1351 @@
+{
+  "openapi" : "3.1.0",
+  "info" : {
+    "title" : "EduConnect REST API",
+    "version" : "1.0.0",
+    "description" : "### Especificaciones OpenAPI 3.1 descargables:\n- 📄 **OpenAPI JSON**: [http://localhost:8080/api/v1/openapi.json](http://localhost:8080/api/v1/openapi.json)\n- 📄 **OpenAPI YAML**: [/docs/docs.yaml](http://localhost:8080/docs/docs.yaml)\n\nPlataforma de Comunicación Efectiva e Interacción Académica para **Diseño y Programación Web III** (Gestión 2026).\nDesarrollado con **Scala 3, ZIO 2 y sttp Tapir**."
+  },
+  "paths" : {
+    "/api/v1/home/summary" : {
+      "get" : {
+        "tags" : [
+          "Home & Metadata"
+        ],
+        "summary" : "Resumen para la página de inicio",
+        "description" : "Retorna métricas globales, avisos urgentes y artículos destacados para la vista principal.",
+        "operationId" : "getApiV1HomeSummary",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HomeSummary"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/developers" : {
+      "get" : {
+        "tags" : [
+          "Home & Metadata"
+        ],
+        "summary" : "Información del equipo de desarrollo y stack tecnológico",
+        "description" : "Detalla los créditos de los estudiantes desarrolladores, carrera, institución, justificación de arquitectura y características implementadas.",
+        "operationId" : "getApiV1Developers",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeveloperInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/categories" : {
+      "get" : {
+        "tags" : [
+          "Educational Content"
+        ],
+        "summary" : "Listado de categorías pedagógicas",
+        "description" : "Obtiene todas las áreas temáticas de comunicación (Asertividad, Escucha Activa, etc.).",
+        "operationId" : "getApiV1ContentCategories",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/articles" : {
+      "get" : {
+        "tags" : [
+          "Educational Content"
+        ],
+        "summary" : "Listado de artículos formativos",
+        "description" : "Retorna tarjetas/resúmenes de artículos educativos con opción de filtrado por categoría.",
+        "operationId" : "getApiV1ContentArticles",
+        "parameters" : [
+          {
+            "name" : "category",
+            "in" : "query",
+            "description" : "Slug opcional de la categoría para filtrar artículos",
+            "required" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ArticleSummary"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/articles/{slug}" : {
+      "get" : {
+        "tags" : [
+          "Educational Content"
+        ],
+        "summary" : "Contenido detallado de un artículo",
+        "description" : "Devuelve el artículo completo en formato Markdown estructurado con autor y tiempo de lectura.",
+        "operationId" : "getApiV1ContentArticlesSlug",
+        "parameters" : [
+          {
+            "name" : "slug",
+            "in" : "path",
+            "description" : "Slug identificador único del artículo",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Article"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/questions" : {
+      "get" : {
+        "tags" : [
+          "Interactive Quiz"
+        ],
+        "summary" : "Preguntas activas del cuestionario interactivo",
+        "description" : "Retorna las preguntas ordenadas y sus alternativas de respuesta sin revelar las respuestas correctas.",
+        "operationId" : "getApiV1QuizQuestions",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/QuizQuestionDto"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/submit" : {
+      "post" : {
+        "tags" : [
+          "Interactive Quiz"
+        ],
+        "summary" : "Envío y calificación automática del cuestionario",
+        "description" : "Evalúa las respuestas enviadas, calcula la puntuación y porcentaje, genera retroalimentación cualitativa y almacena el intento.",
+        "operationId" : "postApiV1QuizSubmit",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/QuizSubmissionRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuizAttempt"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/attempts/{id}" : {
+      "get" : {
+        "tags" : [
+          "Interactive Quiz"
+        ],
+        "summary" : "Consultar resultado de un intento de cuestionario",
+        "description" : "Devuelve la calificación obtenida y la retroalimentación personalizada asociada.",
+        "operationId" : "getApiV1QuizAttemptsId",
+        "parameters" : [
+          {
+            "name" : "id",
+            "in" : "path",
+            "description" : "ID único del intento",
+            "required" : true,
+            "schema" : {
+              "type" : "string",
+              "format" : "uuid"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuizAttempt"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/announcements" : {
+      "get" : {
+        "tags" : [
+          "Communication Hub"
+        ],
+        "summary" : "Avisos y comunicados académicos",
+        "description" : "Lista de comunicados ordenados por prioridad y fecha de publicación.",
+        "operationId" : "getApiV1Announcements",
+        "parameters" : [
+          {
+            "name" : "priority",
+            "in" : "query",
+            "description" : "Filtro opcional por nivel de prioridad (URGENT, NORMAL, INFO)",
+            "required" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Announcement"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [
+          "Communication Hub"
+        ],
+        "summary" : "Publicar nuevo comunicado docente",
+        "description" : "Permite registrar un nuevo aviso en el canal de comunicación académica.",
+        "operationId" : "postApiV1Announcements",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AnnouncementCreateRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Announcement"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/queries" : {
+      "get" : {
+        "tags" : [
+          "Communication Hub"
+        ],
+        "summary" : "Listar consultas estudiantiles",
+        "description" : "Permite a docentes revisar las inquietudes y consultas recibidas.",
+        "operationId" : "getApiV1Queries",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/StudentQuery"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [
+          "Communication Hub"
+        ],
+        "summary" : "Enviar consulta o inquietud estudiantil",
+        "description" : "Canal para que los estudiantes envíen dudas o retroalimentación sobre la materia o el proyecto.",
+        "operationId" : "postApiV1Queries",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StudentQueryCreateRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StudentQuery"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/DatabaseError"
+                    },
+                    {
+                      "$ref" : "#/components/schemas/InternalError"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Announcement" : {
+        "title" : "Announcement",
+        "type" : "object",
+        "required" : [
+          "id",
+          "title",
+          "content",
+          "authorName",
+          "authorRole",
+          "priority"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "string"
+          },
+          "authorName" : {
+            "type" : "string"
+          },
+          "authorRole" : {
+            "type" : "string"
+          },
+          "priority" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "AnnouncementCreateRequest" : {
+        "title" : "AnnouncementCreateRequest",
+        "type" : "object",
+        "required" : [
+          "title",
+          "content",
+          "authorName",
+          "authorRole",
+          "priority"
+        ],
+        "properties" : {
+          "title" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "string"
+          },
+          "authorName" : {
+            "type" : "string"
+          },
+          "authorRole" : {
+            "type" : "string"
+          },
+          "priority" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Article" : {
+        "title" : "Article",
+        "type" : "object",
+        "required" : [
+          "id",
+          "categoryId",
+          "title",
+          "slug",
+          "excerpt",
+          "content",
+          "author",
+          "readTimeMinutes"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "categoryId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "slug" : {
+            "type" : "string"
+          },
+          "excerpt" : {
+            "type" : "string"
+          },
+          "content" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "readTimeMinutes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "ArticleSummary" : {
+        "title" : "ArticleSummary",
+        "type" : "object",
+        "required" : [
+          "id",
+          "categoryId",
+          "categoryName",
+          "title",
+          "slug",
+          "excerpt",
+          "author",
+          "readTimeMinutes"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "categoryId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "categoryName" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "slug" : {
+            "type" : "string"
+          },
+          "excerpt" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "readTimeMinutes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "Category" : {
+        "title" : "Category",
+        "type" : "object",
+        "required" : [
+          "id",
+          "name",
+          "slug"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "slug" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "DatabaseError" : {
+        "title" : "DatabaseError",
+        "type" : "object",
+        "required" : [
+          "message"
+        ],
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DeveloperInfo" : {
+        "title" : "DeveloperInfo",
+        "type" : "object",
+        "required" : [
+          "teamName",
+          "course",
+          "institution",
+          "academicYear",
+          "projectObjective"
+        ],
+        "properties" : {
+          "teamName" : {
+            "type" : "string"
+          },
+          "course" : {
+            "type" : "string"
+          },
+          "institution" : {
+            "type" : "string"
+          },
+          "academicYear" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "members" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TeamMember"
+            }
+          },
+          "techStack" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/TechStackItem"
+            }
+          },
+          "projectObjective" : {
+            "type" : "string"
+          },
+          "features" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "HomeSummary" : {
+        "title" : "HomeSummary",
+        "type" : "object",
+        "required" : [
+          "title",
+          "motto",
+          "theme",
+          "articlesCount",
+          "quizQuestionsCount",
+          "announcementsCount"
+        ],
+        "properties" : {
+          "title" : {
+            "type" : "string"
+          },
+          "motto" : {
+            "type" : "string"
+          },
+          "theme" : {
+            "type" : "string"
+          },
+          "articlesCount" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "quizQuestionsCount" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "announcementsCount" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "recentAnnouncements" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Announcement"
+            }
+          },
+          "featuredArticles" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ArticleSummary"
+            }
+          }
+        }
+      },
+      "InternalError" : {
+        "title" : "InternalError",
+        "type" : "object",
+        "required" : [
+          "message"
+        ],
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "NotFoundError" : {
+        "title" : "NotFoundError",
+        "type" : "object",
+        "required" : [
+          "message"
+        ],
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "QuizAttempt" : {
+        "title" : "QuizAttempt",
+        "type" : "object",
+        "required" : [
+          "id",
+          "participantName",
+          "score",
+          "totalScore",
+          "percentage",
+          "feedback"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "participantName" : {
+            "type" : "string"
+          },
+          "score" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "totalScore" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "percentage" : {
+            "type" : "number"
+          },
+          "feedback" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "QuizOptionDto" : {
+        "title" : "QuizOptionDto",
+        "type" : "object",
+        "required" : [
+          "id",
+          "optionText"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "optionText" : {
+            "type" : "string"
+          }
+        }
+      },
+      "QuizQuestionDto" : {
+        "title" : "QuizQuestionDto",
+        "type" : "object",
+        "required" : [
+          "id",
+          "prompt",
+          "orderIndex"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "prompt" : {
+            "type" : "string"
+          },
+          "orderIndex" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "options" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/QuizOptionDto"
+            }
+          }
+        }
+      },
+      "QuizSubmissionRequest" : {
+        "title" : "QuizSubmissionRequest",
+        "type" : "object",
+        "required" : [
+          "participantName"
+        ],
+        "properties" : {
+          "participantName" : {
+            "type" : "string"
+          },
+          "selectedOptionIds" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "uuid"
+            }
+          }
+        }
+      },
+      "StudentQuery" : {
+        "title" : "StudentQuery",
+        "type" : "object",
+        "required" : [
+          "id",
+          "studentName",
+          "studentEmail",
+          "topic",
+          "message",
+          "status"
+        ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "studentName" : {
+            "type" : "string"
+          },
+          "studentEmail" : {
+            "type" : "string"
+          },
+          "topic" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "StudentQueryCreateRequest" : {
+        "title" : "StudentQueryCreateRequest",
+        "type" : "object",
+        "required" : [
+          "studentName",
+          "studentEmail",
+          "topic",
+          "message"
+        ],
+        "properties" : {
+          "studentName" : {
+            "type" : "string"
+          },
+          "studentEmail" : {
+            "type" : "string"
+          },
+          "topic" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TeamMember" : {
+        "title" : "TeamMember",
+        "type" : "object",
+        "required" : [
+          "name",
+          "role",
+          "bio"
+        ],
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "role" : {
+            "type" : "string"
+          },
+          "github" : {
+            "type" : "string"
+          },
+          "bio" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TechStackItem" : {
+        "title" : "TechStackItem",
+        "type" : "object",
+        "required" : [
+          "layer",
+          "name",
+          "version",
+          "justification"
+        ],
+        "properties" : {
+          "layer" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "version" : {
+            "type" : "string"
+          },
+          "justification" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ValidationError" : {
+        "title" : "ValidationError",
+        "type" : "object",
+        "required" : [
+          "message"
+        ],
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          },
+          "field" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

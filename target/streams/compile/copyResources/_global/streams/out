@@ -1,0 +1,5 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/dennisvera/github/EduConnect_backend_26/src/main/resources/logback.xml,/Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/classes/logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/dennisvera/github/EduConnect_backend_26/src/main/resources/application.conf,/Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/classes/application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/dennisvera/github/EduConnect_backend_26/src/main/resources/db/migration/V1__init_schema.sql,/Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/classes/db/migration/V1__init_schema.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/Users/dennisvera/github/EduConnect_backend_26/src/main/resources/db/migration/V2__seed_initial_data.sql,/Users/dennisvera/github/EduConnect_backend_26/target/scala-3.3.3/classes/db/migration/V2__seed_initial_data.sql)[0m
